@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xpbx.xpbx.mapper.MemberMapper">
+    <select id="selectMemberInfoByLogin" parameterType="com.xpbx.xpbx.domain.Member" resultType="com.xpbx.xpbx.domain.Member">
+        SELECT *
+        FROM sbi_member
+        WHERE user_id=#{userId} AND password=PASSWORD(#{password})
+    </select>
+    <select id="selectMemberInfoByUserId" parameterType="String" resultType="com.xpbx.xpbx.domain.Member">
+        SELECT *
+        FROM sbi_member
+        WHERE user_id=#{userId}
+    </select>
+    <!-- insert id="insertData" parameterType="com.xpbx.xpbx.domain.BasicGroup">
+        INSERT INTO sbi_pbx_admin_group (group_id,group_name,is_group_partition,group_description) values (#{group_id},#{group_name},#{is_group_partition},#{group_description})
+    </insert>
+    <update id="updateData" parameterType="com.xpbx.xpbx.domain.BasicGroup">
+        UPDATE sbi_pbx_admin_group SET group_id=#{group_id}, group_name=#{group_name}, is_group_partition=#{is_group_partition}, group_description=#{group_description} WHERE id=#{id}
+    </update>
+    <delete id="deleteData" parameterType="com.xpbx.xpbx.domain.BasicGroup">
+        DELETE FROM sbi_pbx_admin_group WHERE id=#{id}
+    </delete-->
+</mapper>

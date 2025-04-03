@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xpbx.xpbx.mapper.AddRinggroupMapper">
+    <select id="selectDataList" resultType="com.xpbx.xpbx.domain.AddRinggroup">
+        SELECT *
+        FROM sbi_pbx_admin_group
+        ORDER BY id DESC
+    </select>
+    <select id="selectTotal" parameterType="com.xpbx.xpbx.domain.AddRinggroup" resultType="com.xpbx.xpbx.domain.Total">
+        SELECT COUNT(id) AS countTotal
+        FROM sbi_pbx_admin_ring_group
+        <choose>
+            <when test ='ringGroupId != null and !ringGroupId.equals("")'>
+                WHERE ring_group_id = #{ringGroupId}
+            </when>
+            <when test ='ringGroupNumber != null and !ringGroupNumber.equals("")'>
+                WHERE ring_group_number = #{ringGroupNumber}
+            </when>
+        </choose>
+    </select>
+
+    <select id="selectDataListByPagin" parameterType="com.xpbx.xpbx.domain.AddRinggroupPaging" resultType="com.xpbx.xpbx.domain.AddRinggroup">
+        SELECT *
+        FROM sbi_pbx_admin_ring_group
+        <choose>
+            <when test ='ringGroupId != null and !ringGroupId.equals("")'>
+                WHERE ring_group_id = #{ringGroupId}
+            </when>
+            <when test ='ringGroupNumber != null and !ringGroupNumber.equals("")'>
+                WHERE ring_group_number = #{ringGroupNumber}
+            </when>
+        </choose>
+        ORDER BY id DESC
+        LIMIT #{start},#{limit}
+    </select>
+
+    <insert id="insertData" parameterType="com.xpbx.xpbx.domain.AddRinggroup">
+        INSERT INTO sbi_pbx_admin_ring_group (group_id,group_name,is_group_partition,group_description) values (#{groupId},#{groupName},#{isGroupPartition},#{groupDescription})
+    </insert>
+    <update id="updateData" parameterType="com.xpbx.xpbx.domain.AddRinggroup">
+        UPDATE sbi_pbx_admin_ring_group SET group_id=#{groupId}, group_name=#{groupName}, is_group_partition=#{isGroupPartition}, group_description=#{groupDescription} WHERE id=#{id}
+    </update>
+    <delete id="deleteData" parameterType="com.xpbx.xpbx.domain.AddRinggroup">
+        DELETE FROM sbi_pbx_admin_ring_group WHERE id=#{id}
+    </delete>
+</mapper>
